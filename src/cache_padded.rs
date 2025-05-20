@@ -172,7 +172,6 @@ impl<T> CachePadded<T> {
     /// # Examples
     ///
     /// ```
-    /// use crate::cache_padded::CachePadded;
     ///
     /// let padded_value = CachePadded::new(7);
     /// let value = padded_value.into_inner();
