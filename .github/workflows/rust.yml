@@ -1,0 +1,38 @@
+name: Rust
+
+on:
+  push:
+    branches:
+      - "*"  # Trigger for any branch, including new branches and commits
+  pull_request:
+    branches:
+      - "main"  # Trigger when a PR targets the `main` branch
+
+env:
+  CARGO_TERM_COLOR: always
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4  # Checkout code
+    
+    # Set up nightly Rust toolchain and install Miri
+    - name: Set up nightly Rust toolchain
+      uses: actions-rs/toolchain@v1
+      with:
+        toolchain: nightly  # Use the nightly toolchain
+        components: rustfmt, clippy, miri  # Install Miri, rustfmt, and clippy
+    
+    # Build the project
+    - name: Build
+      run: cargo build --verbose
+    
+    # Run tests normally
+    - name: Run tests
+      run: cargo test --verbose
+    
+    # Run tests with Miri on nightly toolchain
+    - name: Run Miri tests
+      run: cargo +nightly miri test --verbose
