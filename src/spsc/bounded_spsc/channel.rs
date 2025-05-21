@@ -15,7 +15,7 @@
 //!
 //! # Example
 //! ```
-//! use mycrate::spsc::bounded_spsc::channel::BoundedSpscChannel;
+//! use lock_free_spsc_bounded::spsc::bounded_spsc::BoundedSpscChannel;
 //!
 //! let (tx, rx) = BoundedSpscChannel::split(32);
 //!

@@ -127,8 +127,13 @@ impl<T> BoundedSpsc<T> {
     /// let capacity = 4;
     /// let next_index = (index + 1) * ((index + 1) < capacity) as usize;
     /// ```
+    /// We allocate capacity + 1 slots to distinguish between full and empty states.
+    /// One slot is always left unused so that head == tail means empty,
+    /// and (head + 1) % capacity == tail means full, avoiding ambiguity.
+    /// This simplifies the lock-free design with just two atomic indices.
+
     pub(crate) fn new(capacity: usize) -> Self {
-        let buffer = Array::new(capacity);
+        let buffer = Array::new(capacity + 1);
         let next_head = CachePadded::new(AtomicUsize::new(0));
         let tail = CachePadded::new(AtomicUsize::new(0));
         Self {
@@ -248,3 +253,6 @@ impl<T> Drop for BoundedSpsc<T> {
         }
     }
 }
+
+unsafe impl<T> Send for Array<T> {}
+unsafe impl<T> Sync for Array<T> {}
