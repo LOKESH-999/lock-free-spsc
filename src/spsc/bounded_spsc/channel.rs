@@ -15,7 +15,7 @@
 //!
 //! # Example
 //! ```
-//! use lock_free_spsc_bounded::spsc::bounded_spsc::BoundedSpscChannel;
+//! use lock_free_spsc::spsc::bounded_spsc::BoundedSpscChannel;
 //!
 //! let (tx, rx) = BoundedSpscChannel::split(32);
 //!

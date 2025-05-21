@@ -3,5 +3,5 @@
 version = 4
 
 [[package]]
-name = "lock-free-spsc-bounded"
+name = "lock-free-spsc"
 version = "0.1.0"
