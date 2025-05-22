@@ -1,7 +1,6 @@
 mod channel;
 pub(crate) mod inner_spsc;
 
-
 pub use channel::BoundedSpscChannel;
 
 #[cfg(test)]
